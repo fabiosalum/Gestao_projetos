@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-   <title>Mid Dashboard Template</title>
+   <title>Gestão de Projetos - CNEC</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->

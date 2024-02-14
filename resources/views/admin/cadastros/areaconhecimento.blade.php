@@ -53,6 +53,15 @@
     @endif
 
 
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="footer rodape">
+                <p>2024 © Gestão de Projetos - Fábio Salum | <a href="www.f2digital.com.br">F2digital</a></p>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Modal -->
     <div class="modal fade" id="areaconhecimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
