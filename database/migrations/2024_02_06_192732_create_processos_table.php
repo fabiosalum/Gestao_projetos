@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('codigo_id')->nullable();
             $table->date('data_entrega')->nullable();
             $table->date('data_entrega_autor')->nullable();
+            $table->date('data_inicio')->nullable();
             $table->string('autor')->nullable();
             $table->boolean('status')->default('0');
             $table->string('area_conhecimento')->nullable();

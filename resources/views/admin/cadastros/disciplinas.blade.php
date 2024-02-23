@@ -2,9 +2,22 @@
 @section('content')
 
 <div class="d-flex justify-content-end ">
-    <a href="" data-toggle="modal" data-target="#criardisciplina" type="submit" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-5"><i class="ti-plus"></i>Adicionar nova displina</a>
+
+    <a href="" data-toggle="modal" data-target="#criardisciplina" type="submit" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-1"><i class="ti-plus"></i>Adicionar nova displina</a>
+
+    <a href="javascript:if(confirm('Deseja realmente cadastrar de forma automática?')){
+        window.location.href = '{{ route('disciplina.precadastrar') }}'
+    }"
+        class="btn btn-info btn-flat btn-addon m-b-10 m-l-1 mt-4 mr-5"><i class="ti-plus"></i>Criar Automático</a>
+
 </div>
 
+
+<ul>
+    @foreach ($errors->all() as $erro)
+        <li style="color: red; padding-left:20px; margin-top:20px " >{{$erro}}</li>
+    @endforeach
+</ul>
 
 @if (isset($disciplinas))
 <div class="col-lg-6">
@@ -18,7 +31,7 @@
                 <table class="table table-hover ">
                     <thead>
                         <tr>
-                            <th>Área do Conhecimento</th>
+
                             <th>Nome</th>
                             <th class="d-flex justify-content-center">Ações</th>
                         </tr>
@@ -27,7 +40,7 @@
                         <tbody>
                             @foreach ($disciplinas as $disciplina)
                             <tr>
-                                <td>{{ $disciplina->area_con->nome }}</td>
+
                                 <td>{{ $disciplina->nome }}</td>
                                 <td>
                                     <a href=""  data-toggle="modal" data-target=""  class="btn btn-primary m-b-10 m-l-5"><i class="ti-pencil"></i></a>
@@ -76,16 +89,7 @@
                 @csrf
 
                 <div>
-                    <div class="form-group">
-                        <label class="col-md-12 control-label">Área do Conhecimento</label>
-                        <div class="col-md-12">
-                            <select name="conhecimento" class="form-control">
-                                @foreach ($conhecimento as $con)
-                                    <option value="{{$con->id}}">{{$con->nome}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="form-group ml-3 mr-2">
                         <label for="disciplina">Nome da Disciplina</label>
                         <input type="text" class="form-control" id="disciplina" name="disciplina" value="">
@@ -94,9 +98,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">Fechar</button>
 
-                        <form action="" method="POST">
+
                             <button type="submit" class="btn btn-primary">Salvar</button>
-                        </form>
+
 
                     </div>
                 </div>

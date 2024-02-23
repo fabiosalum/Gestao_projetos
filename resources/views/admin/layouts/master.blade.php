@@ -11,7 +11,7 @@
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
-    <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/favicon.png')}}" />
     <!-- Styles -->
     <link href="{{asset('assets/css/lib/weather-icons.css')}}" rel="stylesheet" />
     <link href="{{asset('assets/css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
@@ -48,7 +48,8 @@
     <!-- sidebar -->
 
     <script src="{{asset('assets/js/lib/bootstrap.min.js')}}">
-	</script><script src="{{asset('assets/js/scripts.js')}}"></script>
+	</script>
+    <script src="{{asset('assets/js/scripts.js')}}"></script>
 
     <!-- bootstrap -->
 

@@ -1,15 +1,41 @@
 @extends('admin.layouts.master')
 @section('content')
-    @push('style')
+    @push('styles')
+        <link href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
     @endpush
+
+    @php
+        $user = Auth::user();
+    @endphp
 
     <section id="main-content">
 
 
-        <div class="d-flex justify-content-end ">
-            <a href="" data-toggle="modal" data-target="#criaretapa" type="submit"
-                class="btn btn-success btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-5"><i class="ti-plus"></i>Criar Etapa</a>
+        <div class="row d-flex justify-content-end">
+            @if ($user->eh_admin == '1')
+            <div class="d-flex justify-content-end ">
+                <a href="" data-toggle="modal" data-target="#criaretapa" type="submit"
+                    class="btn btn-success btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-2"><i class="ti-plus"></i>Criar Etapa</a>
+            </div>
+
+            <div class="d-flex justify-content-end ">
+
+
+                <a href="javascript:if(confirm('Deseja realmente as etapas predefinidas?')){
+                    window.location.href = '{{ route('etapas.predefinidas', $projeto->id) }}'
+                }"
+                    class="btn btn-info btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-5"><i class="ti-plus"></i>Criar Etapas
+                    Predefinidas</a>
+
+            </div>
+            @endif
         </div>
+
+        <ul>
+            @foreach ($errors->all() as $erro)
+                <li style="color: red; padding-left:20px; margin-top:20px " >{{$erro}}</li>
+            @endforeach
+        </ul>
 
 
 
@@ -21,17 +47,22 @@
                     </div>
                     <div class="stat-content">
                         <div class="text-left dib">
-                            <div class="stat-heading" style="font-size: 20px; font-weight: 800 ">{{ $projeto->nome }}</div>
-                            <div class="stat-text badge badge-warning" style="font-size: 15px; font-weight: 400">Data de
-                                Entrega {{ \Carbon\Carbon::parse($projeto->data_entrega)->format('d/m/Y') }}</div>
-                            <div class="stat-text">Série {{ $projeto->serie }}</div>
-                            <div class="stat-text">Volume {{ $projeto->volume }}</div>
-                            <div class="stat-text">Simulado {{ $projeto->simulado == 1 ? 'Disponível' : 'Não' }}</div>
-                            <div class="stat-text">Imagem do Capítulo {{ $projeto->imagem == 1 ? 'Disponível' : 'Não' }}
+                            <div class="stat-heading ml-2" style="font-size: 30px; font-weight: 800 ">{{ $projeto->nome }}
                             </div>
-                            <div class="stat-text">Manual {{ $projeto->manual == 1 ? 'Disponível' : 'Não' }}</div>
+                            <div class="stat-text badge badge-warning mt-2"
+                                style="font-size: 15px; font-weight: 400; color: #0a4595">Data de
+                                Entrega do Projeto {{ \Carbon\Carbon::parse($projeto->data_entrega)->format('d/m/Y') }}
+                            </div>
+                            <div class="mt-1">Série: {{ $projeto->serie }}</div>
+                            <div class="">Volume: {{ $projeto->volume }}</div>
+
                         </div>
+
                     </div>
+
+                </div>
+                <div class="d-flex justify-content-end ml-4">
+                    <a href="{{route('todos.processos', $projeto->id)}}" class="btn btn-dark"> Visualizar todos os processos</a>
                 </div>
             </div>
         </div>
@@ -39,54 +70,54 @@
     </section>
 
 
-    <div class="row">
+    <div class="main-container p-5 m-5">
+        <table id="etapas" class="table table-striped" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Data de Entrega</th>
+                    <th>Nome da Etapa</th>
+                    <th>Data de Início</th>
+                    <th>Status</th>
 
-        @if (isset($etapas))
-            @foreach ($etapas as $etapa)
-                <div class="card ml-4 mt-2 col-md-3" style="background-color: #004795">
+                    <th style="text-align: center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($etapas as $etapa)
+                    <tr>
+                        <td class="badge badge-danger w-50 h-50" style="font-size: 15px">
+                            {{ \Carbon\Carbon::parse($etapa->data_entrega)->format('d/m/Y') }}</td>
+                        <td>{{ $etapa->nome }}</td>
+                        <td>{{ \Carbon\Carbon::parse($etapa->data_inicio)->format('d/m/Y') }} </td>
+                        <td>{{ $etapa->data_incio < $etapa->data_entrega ? 'Em dia' : 'Atrasado' }}</td>
 
-                    <div class="stat-widget-six">
-                        <div class="stat-icon">
-                            <i class="ti-bolt-alt" style="color: #fff"></i>
-                        </div>
-                        <div class="stat-content d-flex justify-content-start">
-                            <div class="text-left dib">
-                                <div>
-                                    <h3 style="color: #fff">{{ $etapa->nome }}</h3>
-                                </div>
-                                <div>
-                                    <span style="color: #fdaa0d"> Status ->
-                                        {{ $etapa->data_incio < $etapa->data_entrega ? 'Em dia' : 'Atrasado' }}</span>
-                                </div>
-                                <div>
-                                    <span style="color: #fff">Data de Início -> </span><span
-                                        style="color: #fdaa0d; font-size: 20px">{{ \Carbon\Carbon::parse($etapa->data_inicio)->format('d/m/Y') }}</span>
-                                </div>
-                                <div>
-                                    <span style="color: #fff">Data de Entrega -> </span><span
-                                        style="color: #fdaa0d; font-size: 20px">{{ \Carbon\Carbon::parse($etapa->data_entrega)->format('d/m/Y') }}</span>
-                                </div>
 
-                            </div>
-                        </div>
+                        <td>
+                            <a href="{{ route('etapa.detalhes', $etapa->id, $projeto->id) }}" class="btn btn-primary"
+                                data-toggle="tooltip" data-placement="bottom" title="Exibir Etapa"><i
+                                    class="ti-eye mr-2"></i>Exibir</a>
 
-                        <div class="row">
-                            <div style="transform: scale(0.7); margin-left: -2em  " class="mt-3 col-md-12 ">
-                                <a href="{{route('etapa.detalhes', $etapa->id)}}" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom"
-                                    title="Exibir processos"><i class="ti-eye"></i>Exibir</a>
+                            <a href="#" data-target="#editaretapa-{{ $etapa->id }}" data-toggle="modal"
+                                class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
+                                title="Editar Etapa"><i class="ti-pencil  mr-2"></i>Editar</a>
 
-                                <a href="#" data-target="#editaretapa-{{$etapa->id}}" data-toggle="modal" class="btn btn-success"
-                                    data-toggle="tooltip" data-placement="bottom" title="Editar Etapa"><i
-                                        class="ti-pencil"></i>Editar</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-                            </div>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer rodape">
+                    <p>2024 © Gestão de Projetos - Fábio Salum | <a href="www.f2digital.com.br">F2digital</a></p>
                 </div>
-            @endforeach
-        @endif
+            </div>
+        </div>
+
     </div>
-    <!-- /# row -->
+
+
 
 
 
@@ -193,8 +224,20 @@
 
 
 
-@push('scripts')
-@endpush
+            @push('scripts')
+                <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
-
-@endsection
+                <script>
+                    $('#etapas').DataTable({
+                        buttons: [{
+                            extend: 'columnToggle',
+                            columns: 1
+                        }],
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json',
+                        }
+                    });
+                </script>
+            @endpush
+        @endsection

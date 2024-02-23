@@ -3,8 +3,14 @@
 
     <div class="d-flex justify-content-end ">
         <a href="" data-toggle="modal" data-target="#areaconhecimento" type="submit"
-            class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-5"><i class="ti-plus"></i>Add Área do
+            class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-2"><i class="ti-plus"></i>Add Área do
             Conhecimento</a>
+
+        <a href="javascript:if(confirm('Deseja realmente as cadastrar de forma automática?')){
+                    window.location.href = '{{ route('areaconhecimento.precadastrar') }}'
+                }"
+                    class="btn btn-info btn-flat btn-addon m-b-10 m-l-1 mt-4 mr-5"><i class="ti-plus"></i>Criar Automático</a>
+
     </div>
 
 

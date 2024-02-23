@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Criar Processo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Processo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -19,6 +19,11 @@
                             <div class="form-group col-md-3">
                                 <label for="nome">Código_id</label>
                                 <input type="text" class="form-control" id="codigo_id" name="codigo_id" value="{{$processo->codigo_id}}">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="data_entrega">Início em</label>
+                                <input type="date" class="form-control" id="data_inicio" name="data_inicio"
+                                    value="{{$processo->data_incio}}">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="data_entrega">Entregar em</label>

@@ -33,6 +33,10 @@ class DisciplinasController extends Controller
     public function store(Request $request)
     {
 
+        $validated = $request->validate([
+            'nome' => 'required',
+        ]);
+
         //dd($request);
         $disciplina = new Disciplinas();
 
@@ -42,6 +46,43 @@ class DisciplinasController extends Controller
 
         toastr()->success('Cadastrado com Sucesso');
         return redirect()->back();
+
+
+    }
+
+
+
+    public function precadastrar()
+    {
+
+
+        $nomes_discip = [
+            'Arte',
+            'Biologia',
+            'Educação Física',
+            'Filosofia',
+            'Física',
+            'Geografia',
+            'História',
+            'Interpretação de texto',
+            'Língua Inglesa',
+            'Língua Portuguesa',
+            'Matemática',
+            'Projeto de Vida',
+            'Química',
+            'Redação',
+            'Sociologia'
+        ];
+
+        foreach($nomes_discip as $nd){
+
+            $discip = new Disciplinas();
+            $discip->nome = $nd;
+            $discip->save();
+        }
+
+        toastr()->success('cadastradas com Sucesso');
+        return redirect()->route('disciplina.index');
 
 
     }

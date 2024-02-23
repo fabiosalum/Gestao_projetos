@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('projeto_id')->unsigned();
             $table->string('nome');
-            $table->date('data_entrega');
-            $table->date('data_inicio');
-            $table->boolean('status')->default('1');
+            $table->date('data_entrega')->nullable();
+            $table->date('data_inicio')->nullable();
             $table->timestamps();
 
             $table->foreign('projeto_id')->references('id')->on('projetos');

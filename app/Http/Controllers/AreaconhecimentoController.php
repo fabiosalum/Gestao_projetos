@@ -38,6 +38,29 @@ class AreaconhecimentoController extends Controller
         return redirect()->back();
     }
 
+
+    public function precadastrar()
+    {
+
+        $nomes_ac = [
+            'Linguagens',
+            'Matemática',
+            'Ciências da Natureza',
+            'Ciências Humanas'
+        ];
+
+        foreach ($nomes_ac as $nome) {
+            $a_com = new Areaconhecimento();
+            $a_com->nome = $nome;
+            $a_com->save();
+        }
+
+
+        toastr()->success('cadastradas com Sucesso');
+        return redirect()->route('cadastro.areaconhecimento');
+
+    }
+
     /**
      * Display the specified resource.
      */
@@ -61,9 +84,6 @@ class AreaconhecimentoController extends Controller
 
         toastr()->success('Alterado com Sucesso');
         return redirect()->back();
-
-
-
 
     }
 

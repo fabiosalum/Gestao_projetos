@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Etapas;
 use Illuminate\Http\Request;
 use App\Models\Projetos;
+use Carbon\Carbon;
 
 class EtapaController extends Controller
 {
@@ -29,6 +30,13 @@ class EtapaController extends Controller
      */
     public function store(Request $request)
     {
+
+        //dd($request);
+        $request->validate([
+            'name' => 'required',
+            'data_entrega' => 'required',
+            'data_inicio' => 'required',
+        ]);
 
         $etapa = new Etapas();
 
@@ -74,4 +82,48 @@ class EtapaController extends Controller
     {
         //
     }
+
+    public function etapaspre($id){
+
+        $projeto = Projetos::find($id);
+
+        $nomesetapa = [
+            'Entrega do autor',
+            'Revisão conceitual',
+            'Validação do autor',
+            'Ajustes da validação do autor',
+            '1ª Revisão textual',
+            'Ilustrações',
+            'Validação 1ª revisão textual',
+            '2ª revisão textual',
+            'Ajustes da 2ª revisão textual',
+            'Ajuste textual',
+            'Diagramação',
+            'Revisão de diagramação',
+            'Ajustes da revisão de diagramação',
+            'Check conceitual',
+            'Ajustes do check conceitual',
+            'Validação dos ajustes do check conceitual',
+            'Ajuste final',
+            'Pré-impressão',
+
+        ];
+
+        foreach ($nomesetapa as $nome) {
+            $etapa = new Etapas();
+            $etapa->projeto_id = $projeto->id;
+            $etapa->nome = $nome;
+            $etapa->data_inicio = Carbon::today();
+            $etapa->data_entrega = Carbon::today()->addDays(30);
+            $etapa->save();
+        }
+
+
+        toastr()->success('Etapas cadastradas com Sucesso');
+        return redirect()->route('projetos.index');
+
+    }
+
+
+
 }

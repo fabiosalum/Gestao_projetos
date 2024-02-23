@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\EtapasImport;
 use Illuminate\Http\Request;
 use App\Models\Projetos;
 use App\Models\Etapas;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProjetosController extends Controller
 {
@@ -113,4 +115,8 @@ class ProjetosController extends Controller
     {
         //
     }
+
+
+
+
 }

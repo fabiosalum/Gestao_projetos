@@ -8,6 +8,7 @@ use App\Models\Processos;
 use App\Models\Projetos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Process;
+use Carbon\Carbon;
 
 class ProcessosController extends Controller
 {
@@ -26,12 +27,14 @@ class ProcessosController extends Controller
     public function store(Request $request){
 
 
+
         $processo = new Processos();
 
         $processo->etapa_id = $request->etapa_id;
         $processo->projeto_id = $request->projeto_id;
         $processo->codigo_id = $request->codigo_id;
         $processo->data_entrega = $request->data_entrega;
+        $processo->data_inicio = $request->data_inicio;
         $processo->disciplina_id = $request->disciplina;
         $processo->autor = $request->nome_resp;
         $processo->data_entrega_autor = $request->data_entrega_autor;
@@ -50,12 +53,43 @@ class ProcessosController extends Controller
 
     public function changestatus(Request $request){
 
+
+
         $processoStatus = Processos::find($request->processo_id);
         $processoStatus->status = $request->status;
         $processoStatus->save();
 
+        return response()->json(['success' => true]);
 
     }
+
+    public function precadastrar($etapa_id){
+
+        $disciplinas = Disciplinas::all();
+        $etapa = Etapas::find($etapa_id);
+
+        foreach($disciplinas as $discip){
+
+            $processo = new Processos();
+            $processo->projeto_id = $etapa->projeto_id;
+            $processo->etapa_id = $etapa_id;
+            $processo->data_entrega = $etapa->data_entrega;
+            $processo->disciplina_id = $discip->id;
+            $processo->data_inicio = Carbon::today();
+            $processo->data_entrega_autor = Carbon::today()->addDays(60);
+            $processo->status = 0;
+            $processo->simulado = 0;
+            $processo->imagem = 0;
+            $processo->manual = 0;
+            $processo->save();
+
+        }
+
+
+        toastr()->success('Processos criados com sucesso');
+        return redirect()->route('etapa.detalhes', $etapa_id);
+    }
+
 
     public function excluir($id){
 
@@ -65,9 +99,20 @@ class ProcessosController extends Controller
 
         toastr()->success('Deletado com Sucesso');
         return redirect()->back();
+    }
+
+    public function todosprocessos($id){
 
 
+        $etapas = Etapas::where('projeto_id', $id)->get();
+
+
+        return view('admin.projetos.todas_etapas');
 
 
     }
+
+
+
+
 }
