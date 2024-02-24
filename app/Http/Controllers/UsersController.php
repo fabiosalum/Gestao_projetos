@@ -36,7 +36,7 @@ class UsersController extends Controller
         //dd($request);
         $request->validate([
             'name' => 'required',
-            'email' => 'email|required|unique',
+            'email' => 'email|required',
             'password' => 'required',
         ]);
 
@@ -66,6 +66,21 @@ class UsersController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+
+    public function userchangestatus(Request $request){
+
+        $user = User::find($request->user_id);
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Usuário não encontrado'], 404);
+        }
+
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json(['success' => true]);
     }
 
     /**

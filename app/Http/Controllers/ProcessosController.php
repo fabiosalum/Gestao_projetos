@@ -17,7 +17,7 @@ class ProcessosController extends Controller
         $etapa = Etapas::find($id);
         $todos_processos = Processos::where('projeto_id', $etapa->projeto_id)->get();
         $processos = Processos::where('etapa_id', $id)->latest()->get();
-        $disciplinas = Disciplinas::orderBy('nome', 'asc')->get();
+        $disciplinas = Disciplinas::where('status', '1')->orderBy('nome', 'asc')->get();
         $todas_etapas = Etapas::where('projeto_id', $etapa->projeto_id)->get();
         $status = Processos::where('projeto_id', $id)->get();
         return view('admin.processos.processos', compact('etapa', 'disciplinas', 'processos', 'todas_etapas', 'status','todos_processos'));
@@ -65,7 +65,7 @@ class ProcessosController extends Controller
 
     public function precadastrar($etapa_id){
 
-        $disciplinas = Disciplinas::all();
+        $disciplinas = Disciplinas::where('status', '1')->get();
         $etapa = Etapas::find($etapa_id);
 
         foreach($disciplinas as $discip){
@@ -76,7 +76,7 @@ class ProcessosController extends Controller
             $processo->data_entrega = $etapa->data_entrega;
             $processo->disciplina_id = $discip->id;
             $processo->data_inicio = Carbon::today();
-            $processo->data_entrega_autor = Carbon::today()->addDays(60);
+            $processo->data_entrega_autor = Carbon::today()->addDays(45);
             $processo->status = 0;
             $processo->simulado = 0;
             $processo->imagem = 0;

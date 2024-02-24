@@ -114,7 +114,7 @@ class EtapaController extends Controller
             $etapa->projeto_id = $projeto->id;
             $etapa->nome = $nome;
             $etapa->data_inicio = Carbon::today();
-            $etapa->data_entrega = Carbon::today()->addDays(30);
+            $etapa->data_entrega = Carbon::today()->addDays(60);
             $etapa->save();
         }
 

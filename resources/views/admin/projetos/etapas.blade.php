@@ -61,9 +61,9 @@
                     </div>
 
                 </div>
-                <div class="d-flex justify-content-end ml-4">
+                {{-- <div class="d-flex justify-content-end ml-4">
                     <a href="{{route('todos.processos', $projeto->id)}}" class="btn btn-dark"> Visualizar todos os processos</a>
-                </div>
+                </div> --}}
             </div>
         </div>
 

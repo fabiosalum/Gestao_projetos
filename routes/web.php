@@ -14,6 +14,7 @@ use App\Models\Notificacao;
 use App\Models\Processos;
 use App\Models\Projetos;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -34,13 +35,22 @@ Route::get('/', function () {
 //Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
  Route::get('/dashboard', function () {
-    $notificacoes = Notificacao::latest()->paginate(10);
-    $users = User::all();
-    $proj_andamento = Projetos::where('arquivado', '0')->get();
-    $proj_arquivado = Projetos::where('arquivado', '1')->get();
-    $processos = Processos::where('status', '0')->get();
 
-     return view('admin.dashboard.index', compact('users', 'proj_andamento', 'proj_arquivado', 'processos', 'notificacoes'));
+    $userstatus = Auth::user();
+    if($userstatus->status == 0){
+        return view('admin.dashboard.acesso');
+    }else{
+
+        $notificacoes = Notificacao::latest()->paginate(10);
+        $users = User::all();
+        $proj_andamento = Projetos::where('arquivado', '0')->get();
+        $proj_arquivado = Projetos::where('arquivado', '1')->get();
+        $processos = Processos::where('status', '0')->get();
+
+         return view('admin.dashboard.index', compact('users', 'proj_andamento', 'proj_arquivado', 'processos', 'notificacoes'));
+
+    }
+
   })->middleware(['auth', 'verified'])->name('dashboard');
 
 //Route::middleware('auth')->group(function () {
@@ -64,10 +74,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/cadastros/areaconhecimento/show/{id}', [AreaconhecimentoController::class, 'show'])->name('cadastros.areaconhecimento.show');
 
     Route::resource('/cadastros/disciplina', DisciplinasController::class);
-    Route::get('/disciplina/precadastrar', [DisciplinasController::class, 'precadastrar'])->name('disciplina.precadastrar');
+    //Route::get('/disciplina/precadastrar', [DisciplinasController::class, 'precadastrar'])->name('disciplina.precadastrar');
+    Route::get('/disciplinachangeStatus', [DisciplinasController::class, 'disciplinachangeStatus'])->name('disciplina.changestatus');
 
     Route::resource('/usuarios', UsersController::class);
     Route::delete('/usuarios/excluir/{$id}', [UsersController::class, 'excluir'])->name('usuarios.excluir');
+    Route::get('/userchangeStatus', [UsersController::class, 'userchangestatus'])->name('user.changestatus');
 
     Route::resource('/projetos', ProjetosController::class);
     Route::get('/projetos/show/{id}', [ProjetosController::class, 'detalhes'])->name('projeto.detalhes');

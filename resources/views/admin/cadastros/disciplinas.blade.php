@@ -1,14 +1,18 @@
 @extends('admin.layouts.master')
 @section('content')
 
-<div class="d-flex justify-content-end ">
+@push('styles')
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+@endpush
+
+<div class="d-flex justify-content-start ml-3 ">
 
     <a href="" data-toggle="modal" data-target="#criardisciplina" type="submit" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-1"><i class="ti-plus"></i>Adicionar nova displina</a>
 
-    <a href="javascript:if(confirm('Deseja realmente cadastrar de forma automática?')){
+    {{-- <a href="javascript:if(confirm('Deseja realmente cadastrar de forma automática?')){
         window.location.href = '{{ route('disciplina.precadastrar') }}'
     }"
-        class="btn btn-info btn-flat btn-addon m-b-10 m-l-1 mt-4 mr-5"><i class="ti-plus"></i>Criar Automático</a>
+        class="btn btn-info btn-flat btn-addon m-b-10 m-l-1 mt-4 mr-5"><i class="ti-plus"></i>Criar Automático</a> --}}
 
 </div>
 
@@ -33,6 +37,7 @@
                         <tr>
 
                             <th>Nome</th>
+                            <th>status</th>
                             <th class="d-flex justify-content-center">Ações</th>
                         </tr>
                     </thead>
@@ -43,9 +48,15 @@
 
                                 <td>{{ $disciplina->nome }}</td>
                                 <td>
+                                    <input type="checkbox" class="toggle-class" data-id="{{ $disciplina->id }}"
+                                        data-onstyle="success" data-offstyle="danger" data-on="Ativo"
+                                        data-off="Desativado" data-toggle="toggle" data-size="xs"
+                                        {{ $disciplina->status ? 'checked' : '' }}>
+                                </td>
+                                <td>
                                     <a href=""  data-toggle="modal" data-target=""  class="btn btn-primary m-b-10 m-l-5"><i class="ti-pencil"></i></a>
 
-                                    <a href="" class="btn btn-danger m-b-10 m-l-5"><i class="ti-trash"></i></a>
+                                    {{-- <a href="" class="btn btn-danger m-b-10 m-l-5"><i class="ti-trash"></i></a> --}}
 
                                 </td>
                             </tr>
@@ -110,6 +121,41 @@
   </div>
 
 
+@push('scripts')
 
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+<script>
+    $(function() {
+
+        $('.toggle-class').change(function() {
+
+            var status = $(this).prop('checked') == true ? 1 : 0;
+            var disciplina_id = $(this).data('id');
+
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '/disciplinachangeStatus',
+                data: {
+                    'status': status,
+                    'disciplina_id': disciplina_id
+                },
+                success: function(data) {
+                    console.log(data.success)
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert(
+                        'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
+                }
+
+            });
+        });
+    });
+</script>
+
+@endpush
 
 @endsection

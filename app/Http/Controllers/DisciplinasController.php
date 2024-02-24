@@ -13,10 +13,26 @@ class DisciplinasController extends Controller
      */
     public function index()
     {
-        $conhecimento = Areaconhecimento::all();
+
         $disciplinas = Disciplinas::all();
 
-        return view ('admin.cadastros.disciplinas', compact('disciplinas', 'conhecimento'));
+        return view ('admin.cadastros.disciplinas', compact('disciplinas'));
+    }
+
+
+    public function disciplinachangeStatus(Request $request){
+
+        $disciplina = Disciplinas::find($request->disciplina_id);
+
+        if (!$disciplina) {
+            return response()->json(['success' => false, 'message' => 'Usuário não encontrado'], 404);
+        }
+
+        $disciplina->status = $request->status;
+        $disciplina->save();
+
+        return response()->json(['success' => true]);
+
     }
 
     /**
@@ -33,7 +49,7 @@ class DisciplinasController extends Controller
     public function store(Request $request)
     {
 
-        $validated = $request->validate([
+        $request->validate([
             'nome' => 'required',
         ]);
 
@@ -41,7 +57,6 @@ class DisciplinasController extends Controller
         $disciplina = new Disciplinas();
 
         $disciplina->nome = $request->disciplina;
-        $disciplina->areaconhecimento_id = $request->conhecimento;
         $disciplina->save();
 
         toastr()->success('Cadastrado com Sucesso');

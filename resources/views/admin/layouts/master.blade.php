@@ -13,8 +13,7 @@
     <!-- Standard -->
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/favicon.png')}}" />
     <!-- Styles -->
-    <link href="{{asset('assets/css/lib/weather-icons.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets/css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
+
     <link href="{{asset('assets/css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
     <link href="{{asset('assets/css/lib/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/lib/themify-icons.css')}}" rel="stylesheet">
