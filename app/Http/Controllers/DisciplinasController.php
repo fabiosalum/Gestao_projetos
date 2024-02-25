@@ -115,7 +115,7 @@ class DisciplinasController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
@@ -123,7 +123,15 @@ class DisciplinasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $discip = Disciplinas::find($id);
+
+        $discip->nome = $request->nome;
+        $discip->status = $request->status;
+        $discip->save();
+
+        toastr()->success('Alterada com Sucesso');
+        return redirect()->route('disciplina.index');
+
     }
 
     /**

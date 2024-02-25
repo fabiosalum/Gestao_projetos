@@ -54,8 +54,8 @@
                                         {{ $disciplina->status ? 'checked' : '' }}>
                                 </td>
                                 <td>
-                                    <a href=""  data-toggle="modal" data-target=""  class="btn btn-primary m-b-10 m-l-5"><i class="ti-pencil"></i></a>
-
+                                    <a href="#disciplinaedit-{{ $disciplina->id }}"  data-toggle="modal" data-target=""  class="btn btn-primary m-b-10 m-l-5"><i class="ti-pencil"></i></a>
+                                    @include('admin.cadastros.disciplina_edit')
                                     {{-- <a href="" class="btn btn-danger m-b-10 m-l-5"><i class="ti-trash"></i></a> --}}
 
                                 </td>

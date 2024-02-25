@@ -136,6 +136,7 @@
 
                                         </div>
                                         <p class="comment-date">{{ \Carbon\Carbon::parse($not->data_msg)->format('d/m/Y')}}</p>
+                                        <p class="comment-date mt-3">{{ \Carbon\Carbon::parse($not->created_at)->diffForHumans()}}</p>
                                     </div>
 
                                 </div>

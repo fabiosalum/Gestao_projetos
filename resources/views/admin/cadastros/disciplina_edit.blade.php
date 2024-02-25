@@ -1,5 +1,5 @@
   <!-- Modal -->
-  <div class="modal fade" id="areaconhecimentoedit-{{ $conhecimento->id }}"
+  <div class="modal fade" id="disciplinaedit-{{ $disciplina->id }}"
     tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -13,12 +13,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('cadastros.areaconhecimento.edit', $conhecimento->id)}}" class="forms-sample" method="POST">
+                <form action="{{rouet('disciplina.update')}}" class="forms-sample" method="POST">
 
                     @csrf
                     <div class="form-group">
                         <label class="d-flex justify-content-left" for="nome">Nome</label>
-                        <input type="text" class="form-control" id="nome" name="nome" value="{{$conhecimento->nome}}">
+                        <input type="text" class="form-control" id="nome" name="nome" value="{{$disciplina->nome}}">
                     </div>
 
                     <div class="modal-footer">

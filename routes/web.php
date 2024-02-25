@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AreaconhecimentoController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\EtapaController;
@@ -66,12 +65,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::get('/cadastros/areaconhecimento', [AreaconhecimentoController::class, 'index'])->name('cadastro.areaconhecimento');
-    Route::get('/cadastros/areaconhecimento/precadastrar', [AreaconhecimentoController::class, 'precadastrar'])->name('areaconhecimento.precadastrar');
-    Route::post('/cadastros/areaconhecimento/salvar', [AreaconhecimentoController::class, 'store'])->name('cadastros.areaconhecimento.store');
-    Route::post('/cadastros/areaconhecimento/editar/{id}', [AreaconhecimentoController::class, 'edit'])->name('cadastros.areaconhecimento.edit');
-    Route::delete('/cadastros/areaconhecimento/delete/{id}', [AreaconhecimentoController::class, 'destroy'])->name('cadastros.areaconhecimento.delete');
-    Route::get('/cadastros/areaconhecimento/show/{id}', [AreaconhecimentoController::class, 'show'])->name('cadastros.areaconhecimento.show');
+    // Route::get('/cadastros/areaconhecimento', [AreaconhecimentoController::class, 'index'])->name('cadastro.areaconhecimento');
+    // Route::get('/cadastros/areaconhecimento/precadastrar', [AreaconhecimentoController::class, 'precadastrar'])->name('areaconhecimento.precadastrar');
+    // Route::post('/cadastros/areaconhecimento/salvar', [AreaconhecimentoController::class, 'store'])->name('cadastros.areaconhecimento.store');
+    // Route::post('/cadastros/areaconhecimento/editar/{id}', [AreaconhecimentoController::class, 'edit'])->name('cadastros.areaconhecimento.edit');
+    // Route::delete('/cadastros/areaconhecimento/delete/{id}', [AreaconhecimentoController::class, 'destroy'])->name('cadastros.areaconhecimento.delete');
+    // Route::get('/cadastros/areaconhecimento/show/{id}', [AreaconhecimentoController::class, 'show'])->name('cadastros.areaconhecimento.show');
 
     Route::resource('/cadastros/disciplina', DisciplinasController::class);
     //Route::get('/disciplina/precadastrar', [DisciplinasController::class, 'precadastrar'])->name('disciplina.precadastrar');
