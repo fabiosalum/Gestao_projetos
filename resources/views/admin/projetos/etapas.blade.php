@@ -93,7 +93,7 @@
 
 
                         <td>
-                            <a href="{{ route('etapa.detalhes', $etapa->id, $projeto->id) }}" class="btn btn-primary"
+                            <a href="{{ route('etapa.detalhes', ['id' => $etapa->id, 'projeto_id' => $etapa->projeto_id])}}" class="btn btn-primary"
                                 data-toggle="tooltip" data-placement="bottom" title="Exibir Etapa"><i
                                     class="ti-eye mr-2"></i>Exibir</a>
 

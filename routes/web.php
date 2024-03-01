@@ -88,13 +88,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/projetos/arquivar/{id}', [ProjetosController::class, 'arquivar'])->name('projeto.arquivar');
     Route::get('/projetos/arquivos/exibir', [ProjetosController::class, 'arquivoshow'])->name('projetos.arquivo.show');
 
-    Route::get('/etapas/show/{id}', [ProcessosController::class, 'etapadetalhes'])->name('etapa.detalhes');
+    Route::get('/etapas/show/{id}/{projeto_id}', [ProcessosController::class, 'etapadetalhes'])->name('etapa.detalhes');
     Route::get('/etapas/todos_processos/{id}', [ProcessosController::class, 'todosprocessos'])->name('todos.processos');
     Route::get('/etapas/processos', [ProcessosController::class, 'etapaprocessos'])->name('etapa.processos');
     Route::post('/etapas/processos/salvar', [ProcessosController::class, 'store'])->name('processos.store');
     Route::get('/changeStatus', [ProcessosController::class, 'changestatus'])->name('processos.changestatus');
     Route::get('/processos/excluir/{id}', [ProcessosController::class, 'excluir'])->name('processo.excluir');
-    Route::get('/processos/cadastrar/{etapa_id}', [ProcessosController::class, 'precadastrar'])->name('processo.precadastrar');
+    Route::get('/processos/cadastrar/{etapa_id}/{projeto_id}', [ProcessosController::class, 'precadastrar'])->name('processo.precadastrar');
 
     Route::get('/notificacoes', [NotificacaoController::class, 'index'])->name('notificacao.index');
     Route::post('/notificacoes/store', [NotificacaoController::class, 'store'])->name('notificacao.store');

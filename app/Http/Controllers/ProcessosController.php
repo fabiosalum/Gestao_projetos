@@ -12,12 +12,14 @@ use Carbon\Carbon;
 
 class ProcessosController extends Controller
 {
-    public function etapadetalhes($id){
+    public function etapadetalhes($id, $projeto_id){
 
         $etapa = Etapas::find($id);
+        $projeto = Projetos::findOrFail($projeto_id);
         $todos_processos = Processos::where('projeto_id', $etapa->projeto_id)->get();
         $processos = Processos::where('etapa_id', $id)->latest()->get();
-        $disciplinas = Disciplinas::where('status', '1')->orderBy('nome', 'asc')->get();
+        //$disciplinas = Disciplinas::where('status', '1')->orderBy('nome', 'asc')->get();
+        $disciplinas = $projeto->disciplinas()->where('status', '1')->orderBy('nome', 'asc')->get();
         $todas_etapas = Etapas::where('projeto_id', $etapa->projeto_id)->get();
         $status = Processos::where('projeto_id', $id)->get();
         return view('admin.processos.processos', compact('etapa', 'disciplinas', 'processos', 'todas_etapas', 'status','todos_processos'));
@@ -63,9 +65,12 @@ class ProcessosController extends Controller
 
     }
 
-    public function precadastrar($etapa_id){
+    public function precadastrar($etapa_id, $projeto_id ){
 
-        $disciplinas = Disciplinas::where('status', '1')->get();
+        //$disciplinas = Disciplinas::where('status', '1')->get();
+
+        $projeto = Projetos::findOrFail($projeto_id);
+        $disciplinas = $projeto->disciplinas()->where('status', '1')->orderBy('nome', 'asc')->get();
         $etapa = Etapas::find($etapa_id);
 
         foreach($disciplinas as $discip){
@@ -87,7 +92,7 @@ class ProcessosController extends Controller
 
 
         toastr()->success('Processos criados com sucesso');
-        return redirect()->route('etapa.detalhes', $etapa_id);
+        return redirect()->back();
     }
 
 

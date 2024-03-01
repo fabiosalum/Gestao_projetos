@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\EtapasImport;
+use App\Models\Disciplinas;
 use Illuminate\Http\Request;
 use App\Models\Projetos;
 use App\Models\Etapas;
@@ -16,9 +17,9 @@ class ProjetosController extends Controller
     public function index()
     {
         $projeto = Projetos::where('arquivado', 0)->orderBy('id')->get();
+        $disciplinas = Disciplinas::all();
 
-
-        return view('admin.projetos.index', compact('projeto'));
+        return view('admin.projetos.index', compact('projeto', 'disciplinas'));
     }
 
     /**
@@ -35,20 +36,27 @@ class ProjetosController extends Controller
     public function store(Request $request)
     {
 
+        //dd($request->disciplina);
         $validated = $request->validate([
             'nome' => 'required|unique:projetos|max:255',
             'data_entrega' => 'required',
+            'disciplina' => 'required'
         ]);
 
 
-        $project = new Projetos();
+        // Criar o projeto
+        $project = Projetos::create([
+            'nome' => $request->nome,
+            'data_entrega' => $request->data_entrega,
+            'serie' => $request->serie,
+            'volume' => $request->volume,
+        ]);
 
-        $project->nome = $request->nome;
-        $project->data_entrega = $request->data_entrega;
-        $project->serie = $request->serie;
-        $project->volume = $request->volume;
+        // Obter o ID do projeto recém-criado
+        $projectId = $project->id;
 
-        $project->save();
+        // Sincronizar as disciplinas com o projeto
+        $project->disciplinas()->sync($request->disciplina);
 
         toastr()->success('Projeto cadastrado com Sucesso');
         return redirect()->back();

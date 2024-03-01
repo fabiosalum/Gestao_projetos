@@ -20,7 +20,7 @@
 
         <ul>
             @foreach ($errors->all() as $erro)
-                <li style="color: red; padding-left:20px; margin-top:20px " >{{$erro}}</li>
+                <li style="color: red; padding-left:20px; margin-top:20px ">{{ $erro }}</li>
             @endforeach
         </ul>
 
@@ -28,8 +28,9 @@
         <div class="row">
 
             @if (isset($projeto))
+
                 @foreach ($projeto as $proj)
-                    <div class="col-lg-3 ml-3">
+                    <div class="col-md-3 ml-3">
 
                         <div class="card card-hover">
                             <div class="stat-widget-two">
@@ -39,6 +40,7 @@
                                 window.location.href = '{{ route('projeto.arquivar', $proj->id) }}'}">
                                             <i class="ti-folder row d-flex justify-content-end" data-toggle="tooltip"
                                                 data-placement="bottom" title="Arquivar"></i></a>
+                                    </div>
                                 @endif
                                 <div class="stat-digit">{{ $proj->nome }} </div>
                                 <div class="badge badge-danger" style="font-size: 15px">Data de entrega
@@ -46,14 +48,14 @@
                                 <div class="stat-text"> Série {{ $proj->serie }} </div>
                                 <div class="stat-text">Volume {{ $proj->volume }} </div>
                             </div>
-                            <div><a class="btn btn-success btn-block m-b-10"
-                                    href="{{ route('projeto.detalhes', $proj->id) }}">Entrar</a></div>
-
+                                <div>
+                                    <a class="btn btn-success btn-block m-b-10"
+                                    href="{{ route('projeto.detalhes', $proj->id) }}">Entrar</a>
+                                </div>
                         </div>
-
                     </div>
-
                 @endforeach
+
             @endif
         </div>
 
@@ -101,6 +103,26 @@
                             <label for="volume">Volume</label>
                             <input type="texte" class="form-control" id="volume" name="volume" value="">
                         </div>
+
+                        <div>
+                            <h6>Quais disciplinas vão participar desse projeto?</h6>
+                        </div>
+
+                        <div class="row">
+                            @foreach ($disciplinas as $disciplina)
+                                <div class="form-group">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="disciplina[]" value="{{ $disciplina->id }}">
+                                                {{ $disciplina->nome }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
 
 
                         <div class="modal-footer">

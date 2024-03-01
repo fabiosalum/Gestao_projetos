@@ -31,7 +31,7 @@
             </div>
             @if ($user->eh_admin == '1')
                 <div>
-                    <a href="{{ route('processo.precadastrar', $etapa->id) }}"
+                    <a href="{{ route('processo.precadastrar', ['etapa_id' => $etapa->id, 'projeto_id' => $etapa->projeto_id]) }}"
                         class="btn btn-info btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-1"><i class="ti-angle-left"></i>Criar
                         Processos Predefinidos</a>
                 </div>
