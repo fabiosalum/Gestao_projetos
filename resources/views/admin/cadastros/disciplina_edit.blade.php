@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{rouet('disciplina.update')}}" class="forms-sample" method="POST">
+                <form action="{{route('disciplina.update', $disciplina->id )}}" class="forms-sample" method="POST">
 
                     @csrf
                     <div class="form-group">
