@@ -140,7 +140,9 @@
                         <th>Imagem</th>
                         <th>Manual</th>
                         <th>Status</th>
-                        <th>Ações</th>
+                        @if ($user->eh_admin == '1')
+                            <th>Ações</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -165,6 +167,7 @@
                                     data-off="Em andamento" data-toggle="toggle" data-size="xs"
                                     {{ $processo->status ? 'checked' : '' }}>
                             </td>
+                            @if ($user->eh_admin == '1')
                             <td>
                                 <a href="#processoedit-{{ $processo->id }}" data-toggle="modal"
                                     class="btn btn-primary m-b-10 m-l-5"><i class="ti-pencil"></i></a>
@@ -173,11 +176,9 @@
                                         window.location.href = '{{ route('processo.excluir', $processo->id) }}'
                                     }"
                                     class="btn btn-danger m-b-10 m-l-5"><i class="ti-trash"></i></a>
-
                                 @include('admin.processos.processo_modal_edit')
-
-
                             </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

@@ -100,17 +100,19 @@
                                 data-toggle="tooltip" data-placement="bottom" title="Exibir Etapa"><i
                                     class="ti-eye mr-2"></i>Exibir</a>
 
-                            <a href="#editaretapa-{{ $etapa->id }}" data-toggle="modal"
-                                class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
-                                title="Editar Etapa"><i class="ti-pencil"></i></a>
+                            @if ($user->eh_admin == '1')
+                                <a href="#editaretapa-{{ $etapa->id }}" data-toggle="modal"
+                                    class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
+                                    title="Editar Etapa"><i class="ti-pencil"></i></a>
 
-                            <a href="javascript:if(confirm('Deseja realmente excluir esse etapa?')){
-                                window.location.href = '{{ route('etapa.excluir', $etapa->id) }}'
-                            }"
-                            class="btn btn-danger" data-toggle="tooltip" data-placement="bottom"
-                            title="Excluir Etapa"><i class="ti-trash"></i></a>
+                                <a href="javascript:if(confirm('Deseja realmente excluir esse etapa?')){
+                                    window.location.href = '{{ route('etapa.excluir', $etapa->id) }}'
+                                }"
+                                class="btn btn-danger" data-toggle="tooltip" data-placement="bottom"
+                                title="Excluir Etapa"><i class="ti-trash"></i></a>
 
-                            @include('admin.projetos.editar')
+                                @include('admin.projetos.editar')
+                            @endif
 
                         </td>
                     </tr>

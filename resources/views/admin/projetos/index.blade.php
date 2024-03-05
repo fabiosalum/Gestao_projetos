@@ -11,12 +11,13 @@
 
     <section id="main-content">
 
-
-        <div class="d-flex justify-content-end ">
-            <a href="" data-toggle="modal" data-target="#criarprojeto" type="submit"
-                class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-5"><i class="ti-plus"></i>Criar novo
-                projeto</a>
-        </div>
+        @if ($user->eh_admin == '1')
+            <div class="d-flex justify-content-end ">
+                <a href="" data-toggle="modal" data-target="#criarprojeto" type="submit"
+                    class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5 mt-4 mr-5"><i class="ti-plus"></i>Criar novo
+                    projeto</a>
+            </div>
+        @endif
 
         <ul>
             @foreach ($errors->all() as $erro)
@@ -50,11 +51,13 @@
                             <div class="row justify-content-center">
                                 <a class="btn btn-success col-md-5 m-b-10"
                                     href="{{ route('projeto.detalhes', $proj->id) }}">Entrar</a>
+                                @if ($user->eh_admin == '1')
+                                    <a href="#editarprojeto-{{$proj->id}}" data-toggle="modal" data-target=""
+                                    class="btn btn-primary col-md-5 m-b-10 ml-2">Editar</a>
 
-                                <a href="#editarprojeto-{{$proj->id}}" data-toggle="modal" data-target=""
-                                class="btn btn-primary col-md-5 m-b-10 ml-2">Editar</a>
 
-                                @include('admin.projetos.editarprojeto')
+                                    @include('admin.projetos.editarprojeto')
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/03/2024 às 20:55
+-- Tempo de geração: 05/03/2024 às 20:36
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -40,21 +40,21 @@ CREATE TABLE `disciplinas` (
 --
 
 INSERT INTO `disciplinas` (`id`, `nome`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Arte', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(2, 'Biologia', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(3, 'Educação Física', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(4, 'Filosofia', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(5, 'Física', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(6, 'Geografia', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(7, 'História', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(8, 'Interpretação de texto', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(9, 'Língua Inglesa', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(10, 'Língua Portuguesa', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(11, 'Matemática', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(12, 'Projeto de Vida', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(13, 'Química', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(14, 'Redação', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58'),
-(15, 'Sociologia', 1, '2024-03-01 19:54:58', '2024-03-01 19:54:58');
+(1, 'Arte', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(2, 'Biologia', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(3, 'Educação Física', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(4, 'Filosofia', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(5, 'Física', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(6, 'Geografia', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(7, 'História', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(8, 'Interpretação de texto', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(9, 'Língua Inglesa', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(10, 'Língua Portuguesa', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(11, 'Matemática', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(12, 'Projeto de Vida', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(13, 'Química', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(14, 'Redação', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18'),
+(15, 'Sociologia', 1, '2024-03-05 19:35:18', '2024-03-05 19:35:18');
 
 -- --------------------------------------------------------
 
@@ -243,7 +243,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `eh_admin`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$12$vfJZ1HxeV688/WiE5vk1kOibRtk0jG0AcBvCcj54WV6lxRBB/XlnW', 1, 1, NULL, NULL, NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$12$te10BeLGwKwo8nTdro1QC.YjKZQYkFj1FrSceXH5CCXBq1rviot9i', 1, 1, NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -399,7 +399,7 @@ ALTER TABLE `disciplinas_projetos`
 -- Restrições para tabelas `etapas`
 --
 ALTER TABLE `etapas`
-  ADD CONSTRAINT `etapas_projeto_id_foreign` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`);
+  ADD CONSTRAINT `etapas_projeto_id_foreign` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `notificacaos`
@@ -412,9 +412,9 @@ ALTER TABLE `notificacaos`
 -- Restrições para tabelas `processos`
 --
 ALTER TABLE `processos`
-  ADD CONSTRAINT `processos_disciplina_id_foreign` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`id`),
-  ADD CONSTRAINT `processos_etapa_id_foreign` FOREIGN KEY (`etapa_id`) REFERENCES `etapas` (`id`),
-  ADD CONSTRAINT `processos_projeto_id_foreign` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`);
+  ADD CONSTRAINT `processos_disciplina_id_foreign` FOREIGN KEY (`disciplina_id`) REFERENCES `disciplinas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `processos_etapa_id_foreign` FOREIGN KEY (`etapa_id`) REFERENCES `etapas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `processos_projeto_id_foreign` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
