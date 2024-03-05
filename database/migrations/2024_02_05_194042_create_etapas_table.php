@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('data_inicio')->nullable();
             $table->timestamps();
 
-            $table->foreign('projeto_id')->references('id')->on('projetos');
+            $table->foreign('projeto_id')->references('id')->on('projetos')->onDelete('cascade');
 
         });
     }

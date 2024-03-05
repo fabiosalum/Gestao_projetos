@@ -28,7 +28,6 @@
         <div class="row">
 
             @if (isset($projeto))
-
                 @foreach ($projeto as $proj)
                     <div class="col-md-3 ml-3">
 
@@ -48,14 +47,18 @@
                                 <div class="stat-text"> Série {{ $proj->serie }} </div>
                                 <div class="stat-text">Volume {{ $proj->volume }} </div>
                             </div>
-                                <div>
-                                    <a class="btn btn-success btn-block m-b-10"
+                            <div class="row justify-content-center">
+                                <a class="btn btn-success col-md-5 m-b-10"
                                     href="{{ route('projeto.detalhes', $proj->id) }}">Entrar</a>
-                                </div>
+
+                                <a href="#editarprojeto-{{$proj->id}}" data-toggle="modal" data-target=""
+                                class="btn btn-primary col-md-5 m-b-10 ml-2">Editar</a>
+
+                                @include('admin.projetos.editarprojeto')
+                            </div>
                         </div>
                     </div>
                 @endforeach
-
             @endif
         </div>
 
@@ -66,7 +69,7 @@
     <div class="d-block">
         <div class="col-lg-12">
             <div class="footer rodape">
-                <p>2024 © Gestão de Projetos - Fábio Salum | <a href="www.f2digital.com.br">F2digital</a></p>
+                <p>2024 © Gestão de Projetos - Fábio Salum | <a href="https://www.f2digital.com.br" target="_blank">F2digital</a></p>
             </div>
         </div>
     </div>
@@ -124,7 +127,6 @@
                         </div>
 
 
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary modal-close"
                                 data-dismiss="modal">Fechar</button>
@@ -134,6 +136,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-    @endsection
+@endsection

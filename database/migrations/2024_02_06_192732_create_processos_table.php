@@ -28,9 +28,9 @@ return new class extends Migration
             $table->boolean('manual')->default('1');
             $table->timestamps();
 
-            $table->foreign('etapa_id')->references('id')->on('etapas');
-            $table->foreign('projeto_id')->references('id')->on('projetos');
-            $table->foreign('disciplina_id')->references('id')->on('disciplinas');
+            $table->foreign('etapa_id')->references('id')->on('etapas')->onDelete('cascade');
+            $table->foreign('projeto_id')->references('id')->on('projetos')->onDelete('cascade');
+            $table->foreign('disciplina_id')->references('id')->on('disciplinas')->onDelete('cascade');
 
 
         });

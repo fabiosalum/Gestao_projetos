@@ -74,32 +74,43 @@
         <table id="etapas" class="table table-striped" style="width: 100%">
             <thead>
                 <tr>
-                    <th>Data de Entrega</th>
+                    <th>Id</th>
                     <th>Nome da Etapa</th>
                     <th>Data de Início</th>
+                    <th>Data de Entrega</th>
                     <th>Status</th>
-
                     <th style="text-align: center">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($etapas as $etapa)
                     <tr>
-                        <td class="badge badge-danger w-50 h-50" style="font-size: 15px">
-                            {{ \Carbon\Carbon::parse($etapa->data_entrega)->format('d/m/Y') }}</td>
+                        <td>{{ $etapa->id }}</td>
                         <td>{{ $etapa->nome }}</td>
-                        <td>{{ \Carbon\Carbon::parse($etapa->data_inicio)->format('d/m/Y') }} </td>
-                        <td>{{ $etapa->data_incio < $etapa->data_entrega ? 'Em dia' : 'Atrasado' }}</td>
+                        <td><span class="badge badge-success" style="font-size: 15px">
+                            {{ \Carbon\Carbon::parse($etapa->data_inicio)->format('d/m/Y') }}</span> </td>
 
+                        <td><span class="badge badge-danger" style="font-size: 15px">
+                            {{ \Carbon\Carbon::parse($etapa->data_entrega)->format('d/m/Y') }}</span></td>
+
+                        <td>{{ $etapa->data_incio < $etapa->data_entrega ? 'Em dia' : 'Atrasado' }}</td>
 
                         <td>
                             <a href="{{ route('etapa.detalhes', ['id' => $etapa->id, 'projeto_id' => $etapa->projeto_id])}}" class="btn btn-primary"
                                 data-toggle="tooltip" data-placement="bottom" title="Exibir Etapa"><i
                                     class="ti-eye mr-2"></i>Exibir</a>
 
-                            <a href="#" data-target="#editaretapa-{{ $etapa->id }}" data-toggle="modal"
+                            <a href="#editaretapa-{{ $etapa->id }}" data-toggle="modal"
                                 class="btn btn-success" data-toggle="tooltip" data-placement="bottom"
-                                title="Editar Etapa"><i class="ti-pencil  mr-2"></i>Editar</a>
+                                title="Editar Etapa"><i class="ti-pencil"></i></a>
+
+                            <a href="javascript:if(confirm('Deseja realmente excluir esse etapa?')){
+                                window.location.href = '{{ route('etapa.excluir', $etapa->id) }}'
+                            }"
+                            class="btn btn-danger" data-toggle="tooltip" data-placement="bottom"
+                            title="Excluir Etapa"><i class="ti-trash"></i></a>
+
+                            @include('admin.projetos.editar')
 
                         </td>
                     </tr>
@@ -110,7 +121,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer rodape">
-                    <p>2024 © Gestão de Projetos - Fábio Salum | <a href="www.f2digital.com.br">F2digital</a></p>
+                    <p>2024 © Gestão de Projetos - Fábio Salum | <a href="https://www.f2digital.com.br" target="_blank">F2digital</a></p>
                 </div>
             </div>
         </div>
@@ -234,6 +245,8 @@
                             extend: 'columnToggle',
                             columns: 1
                         }],
+                        pageLength: 25,
+
                         language: {
                             url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json',
                         }

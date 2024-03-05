@@ -65,15 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // Route::get('/cadastros/areaconhecimento', [AreaconhecimentoController::class, 'index'])->name('cadastro.areaconhecimento');
-    // Route::get('/cadastros/areaconhecimento/precadastrar', [AreaconhecimentoController::class, 'precadastrar'])->name('areaconhecimento.precadastrar');
-    // Route::post('/cadastros/areaconhecimento/salvar', [AreaconhecimentoController::class, 'store'])->name('cadastros.areaconhecimento.store');
-    // Route::post('/cadastros/areaconhecimento/editar/{id}', [AreaconhecimentoController::class, 'edit'])->name('cadastros.areaconhecimento.edit');
-    // Route::delete('/cadastros/areaconhecimento/delete/{id}', [AreaconhecimentoController::class, 'destroy'])->name('cadastros.areaconhecimento.delete');
-    // Route::get('/cadastros/areaconhecimento/show/{id}', [AreaconhecimentoController::class, 'show'])->name('cadastros.areaconhecimento.show');
-
     Route::resource('/cadastros/disciplina', DisciplinasController::class);
-    //Route::get('/disciplina/precadastrar', [DisciplinasController::class, 'precadastrar'])->name('disciplina.precadastrar');
     Route::get('/disciplinachangeStatus', [DisciplinasController::class, 'disciplinachangeStatus'])->name('disciplina.changestatus');
 
     Route::resource('/usuarios', UsersController::class);
@@ -82,7 +74,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/projetos', ProjetosController::class);
     Route::get('/projetos/show/{id}', [ProjetosController::class, 'detalhes'])->name('projeto.detalhes');
+    Route::get('/projetos/atualizar/{id}', [ProjetosController::class, 'update'])->name('projeto.update');
     Route::post('/projetos/etapas', [EtapaController::class, 'store'])->name('etapas.store');
+    Route::get('/projetos/etapas/atualizar/{id}', [EtapaController::class, 'update'])->name('etapas.update');
+    Route::get('/projetos/etapas/excluir/{id}', [EtapaController::class, 'excluir'])->name('etapa.excluir');
     Route::get('/projetos/etapas_pre/{id}', [EtapaController::class, 'etapaspre'])->name('etapas.predefinidas');
     Route::post('/projetos/import', [ProjetosController::class, 'uploadExcel'])->name('upload.excel');
     Route::get('/projetos/arquivar/{id}', [ProjetosController::class, 'arquivar'])->name('projeto.arquivar');

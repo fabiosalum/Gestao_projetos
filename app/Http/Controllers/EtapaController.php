@@ -72,7 +72,17 @@ class EtapaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $etapa = Etapas::find($id);
+
+        $etapa->nome = $request->nome;
+        $etapa->data_entrega = $request->data_entrega;
+        $etapa->data_inicio = $request->data_inicio;
+
+        $etapa->save();
+
+        toastr()->success('Etapa atualizada com Sucesso');
+        return redirect()->back();
+
     }
 
     /**
@@ -81,6 +91,16 @@ class EtapaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function excluir(string $id){
+
+        $etapa = Etapas::find($id);
+        $etapa->delete();
+
+        toastr()->success('Deletado com Sucesso');
+        return redirect()->back();
+
     }
 
     public function etapaspre($id){

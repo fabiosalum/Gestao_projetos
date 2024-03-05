@@ -70,7 +70,7 @@ class ProjetosController extends Controller
     {
 
         $projeto = Projetos::find($id);
-        $etapas = Etapas::where('projeto_id', $id)->get();
+        $etapas = Etapas::where('projeto_id', $id)->orderBy('id', 'asc')->get();
         return view ('admin.projetos.etapas', compact('projeto', 'etapas'));
 
     }
@@ -113,7 +113,25 @@ class ProjetosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|max:255',
+            'data_entrega' => 'required',
+            'disciplina' => 'required'
+        ]);
+
+        $projeto = Projetos::find($id);
+        $projeto->nome = $request->nome;
+        $projeto->data_entrega = $request->data_entrega;
+        $projeto->serie = $request->serie;
+        $projeto->volume = $request->volume;
+        $projeto->save();
+
+        // Sincronizar as disciplinas com o projeto
+        $projeto->disciplinas()->sync($request->disciplina);
+
+        toastr()->success('Projeto atualizado com Sucesso');
+        return redirect()->back();
+
     }
 
     /**

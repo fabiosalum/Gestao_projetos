@@ -46,9 +46,9 @@
 @endphp
 
 <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
-    <div class="nano">
+    <div class="nano ">
       <div class="nano-content">
-        <div class="logo"><a href="{{route('dashboard')}}"><h1 style="color: white; text-align: left; padding-left: 20px ">Gestão de Projetos</h1></a></div>
+        <div class="logo"><a href="{{route('dashboard')}}"><h6 style="color: white; text-align: left; padding-left: 20px ">Gestão de Projetos</h6></a></div>
         <ul>
           <li class="label">MENU</li>
           <li><a href="{{route('dashboard')}}" ><i class="ti-home"></i> Dashboard</a></li>
