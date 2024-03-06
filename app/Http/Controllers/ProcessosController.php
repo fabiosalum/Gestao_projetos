@@ -106,13 +106,28 @@ class ProcessosController extends Controller
         return redirect()->back();
     }
 
-    public function todosprocessos($id){
+    public function update(Request $request, $id){
 
 
-        $etapas = Etapas::where('projeto_id', $id)->get();
+        $processo = Processos::find($id);
+
+        $processo->codigo_id = $request->codigo_id;
+        $processo->data_entrega = $request->data_entrega;
+        $processo->data_inicio = $request->data_inicio;
+        $processo->disciplina_id = $request->disciplina;
+        $processo->autor = $request->nome_resp;
+        $processo->data_entrega_autor = $request->data_entrega_autor;
+        $processo->simulado = $request->simulado;
+        $processo->imagem = $request->imagem;
+        $processo->manual = $request->manual;
+        $processo->status = 0;
+
+        $processo->save();
+
+        toastr()->success('Atualizado com Sucesso');
+        return redirect()->back();
 
 
-        return view('admin.projetos.todas_etapas');
 
 
     }

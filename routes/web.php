@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/etapas/processos/salvar', [ProcessosController::class, 'store'])->name('processos.store');
     Route::get('/changeStatus', [ProcessosController::class, 'changestatus'])->name('processos.changestatus');
     Route::get('/processos/excluir/{id}', [ProcessosController::class, 'excluir'])->name('processo.excluir');
+    Route::get('/processos/editar/{id}', [ProcessosController::class, 'update'])->name('processo.update');
     Route::get('/processos/cadastrar/{etapa_id}/{projeto_id}', [ProcessosController::class, 'precadastrar'])->name('processo.precadastrar');
 
     Route::get('/notificacoes', [NotificacaoController::class, 'index'])->name('notificacao.index');
