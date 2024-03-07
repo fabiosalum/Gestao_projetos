@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
@@ -16,7 +17,10 @@ class UsersController extends Controller
     {
         $users = User::skip(1)->take(PHP_INT_MAX)->get();
 
-        return view('admin.usuarios.index', compact('users'));
+        if(!Gate::allows('acesso-user')){
+            return view('admin.usuarios.index', compact('users'));
+        }
+
     }
 
     /**

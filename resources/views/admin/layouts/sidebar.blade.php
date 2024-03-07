@@ -35,6 +35,15 @@
         color: white;
     }
 
+    .esconde{
+      display: none;
+
+    }
+
+    .sidebar-hide .sidebar.sidebar-hide-to-small{
+      position: fixed;
+    }
+
 
 </style>
 
@@ -83,4 +92,14 @@
     </div>
 </div>
 <!-- /# sidebar -->
+
+@push('scripts')
+
+<script>
+$(".hamburger").on('click', function() {
+        $(".logo").toggleClass("esconde");
+    });
+
+</script>
+@endpush
 

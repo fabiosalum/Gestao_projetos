@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Areaconhecimento;
 use App\Models\Disciplinas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DisciplinasController extends Controller
 {
@@ -16,7 +17,11 @@ class DisciplinasController extends Controller
 
         $disciplinas = Disciplinas::all();
 
-        return view ('admin.cadastros.disciplinas', compact('disciplinas'));
+        if(!Gate::allows('acesso-user')){
+            return view ('admin.cadastros.disciplinas', compact('disciplinas'));
+        }
+
+
     }
 
 
